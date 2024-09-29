@@ -15,7 +15,6 @@
         <li><a href="#technical-considerations">Technical Considerations</a></li>
         <li><a href="#part-1-libc-functions">Part 1 - Libc Functions</a></li>
         <li><a href="#part-2-additional-functions">Part 2 - Additional Functions</a></li>
-        <li><a href="#bonus-functions">Bonus Functions</a></li>
     </ul>
     <h2 id="program-name">Program Name</h2>
     <p><strong>libft.a</strong></p>
@@ -277,7 +276,6 @@
     <p>
         <strong>Description:</strong> Converts the string <code>nptr</code> to an integer.
     </p>
-    <h2>Bonus Functions</h2>
     <h3>Function Name: <code>ft_strdup</code></h3>
     <p>
         <strong>Prototype:</strong> <code>char *ft_strdup(const char *s1);</code>
@@ -357,6 +355,157 @@
     <p>
         <strong>Description:</strong> Splits the string <code>s</code> into substrings using the character <code>c</code> as a delimiter.
     </p>
+    <h1>Libft Bonus Part</h1>
+
+<h2>Table of Contents</h2>
+<ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#structure-definition">Structure Definition</a></li>
+    <li><a href="#functions">Functions</a>
+        <ul>
+            <li><a href="#ft_lstnew">ft_lstnew</a></li>
+            <li><a href="#ft_lstadd_front">ft_lstadd_front</a></li>
+            <li><a href="#ft_lstsize">ft_lstsize</a></li>
+            <li><a href="#ft_lstlast">ft_lstlast</a></li>
+            <li><a href="#ft_lstadd_back">ft_lstadd_back</a></li>
+            <li><a href="#ft_lstdelone">ft_lstdelone</a></li>
+            <li><a href="#ft_lstclear">ft_lstclear</a></li>
+            <li><a href="#ft_lstiter">ft_lstiter</a></li>
+            <li><a href="#ft_lstmap">ft_lstmap</a></li>
+        </ul>
+    </li>
+    <li><a href="#makefile">Makefile</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h2 id="introduction">Introduction</h2>
+<p>
+    The bonus part of the Libft project focuses on implementing a linked list data structure to improve memory and string manipulation. This additional functionality will enhance the library and provide bonus points if successfully completed after the mandatory part is perfected.
+</p>
+
+<h2 id="structure-definition">Structure Definition</h2>
+<p>
+    Add the following structure definition to your <code>libft.h</code> file:
+</p>
+<pre><code>
+typedef struct s_list
+{
+    void *content;          // Data contained in the node.
+    struct s_list *next;   // Address of the next node or NULL.
+} t_list;
+</code></pre>
+
+<h2 id="functions">Functions</h2>
+<p>The following functions will be implemented to manipulate the linked list:</p>
+
+<h3 id="ft_lstnew">ft_lstnew</h3>
+<p>
+    <strong>Prototype:</strong> <code>t_list *ft_lstnew(void *content);</code><br>
+    <strong>Parameters:</strong> 
+    <ul>
+        <li><code>content</code>: The content to create the node with.</li>
+    </ul>
+    <strong>Return Value:</strong> The new node.<br>
+    <strong>External Functions:</strong> <code>malloc</code><br>
+    <strong>Description:</strong> Allocates and returns a new node, initializing <code>content</code> and setting <code>next</code> to <code>NULL</code>.
+</p>
+
+<h3 id="ft_lstadd_front">ft_lstadd_front</h3>
+<p>
+    <strong>Prototype:</strong> <code>void ft_lstadd_front(t_list **lst, t_list *new);</code><br>
+    <strong>Parameters:</strong> 
+    <ul>
+        <li><code>lst</code>: The address of a pointer to the first link of a list.</li>
+        <li><code>new</code>: The address of a pointer to the node to be added to the list.</li>
+    </ul>
+    <strong>Return Value:</strong> None.<br>
+    <strong>Description:</strong> Adds the node <code>new</code> at the beginning of the list.
+</p>
+
+<h3 id="ft_lstsize">ft_lstsize</h3>
+<p>
+    <strong>Prototype:</strong> <code>int ft_lstsize(t_list *lst);</code><br>
+    <strong>Parameters:</strong> 
+    <ul>
+        <li><code>lst</code>: The beginning of the list.</li>
+    </ul>
+    <strong>Return Value:</strong> The length of the list.<br>
+    <strong>Description:</strong> Counts the number of nodes in a list.
+</p>
+
+<h3 id="ft_lstlast">ft_lstlast</h3>
+<p>
+    <strong>Prototype:</strong> <code>t_list *ft_lstlast(t_list *lst);</code><br>
+    <strong>Parameters:</strong> 
+    <ul>
+        <li><code>lst</code>: The beginning of the list.</li>
+    </ul>
+    <strong>Return Value:</strong> Last node of the list.<br>
+    <strong>Description:</strong> Returns the last node of the list.
+</p>
+
+<h3 id="ft_lstadd_back">ft_lstadd_back</h3>
+<p>
+    <strong>Prototype:</strong> <code>void ft_lstadd_back(t_list **lst, t_list *new);</code><br>
+    <strong>Parameters:</strong> 
+    <ul>
+        <li><code>lst</code>: The address of a pointer to the first link of a list.</li>
+        <li><code>new</code>: The address of a pointer to the node to be added to the list.</li>
+    </ul>
+    <strong>Return Value:</strong> None.<br>
+    <strong>Description:</strong> Adds the node <code>new</code> at the end of the list.
+</p>
+
+<h3 id="ft_lstdelone">ft_lstdelone</h3>
+<p>
+    <strong>Prototype:</strong> <code>void ft_lstdelone(t_list *lst, void (*del)(void *));</code><br>
+    <strong>Parameters:</strong> 
+    <ul>
+        <li><code>lst</code>: The node to free.</li>
+        <li><code>del</code>: The address of the function used to delete the content.</li>
+    </ul>
+    <strong>Return Value:</strong> None.<br>
+    <strong>External Functions:</strong> <code>free</code><br>
+    <strong>Description:</strong> Takes as a parameter a node and frees the memory of the node’s content using the function <code>del</code> given as a parameter and frees the node. The memory of <code>next</code> must not be freed.
+</p>
+
+<h3 id="ft_lstclear">ft_lstclear</h3>
+<p>
+    <strong>Prototype:</strong> <code>void ft_lstclear(t_list **lst, void (*del)(void *));</code><br>
+    <strong>Parameters:</strong> 
+    <ul>
+        <li><code>lst</code>: The address of a pointer to a node.</li>
+        <li><code>del</code>: The address of the function used to delete the content of the node.</li>
+    </ul>
+    <strong>Return Value:</strong> None.<br>
+    <strong>External Functions:</strong> <code>free</code><br>
+    <strong>Description:</strong> Deletes and frees the given node and every successor of that node, using the function <code>del</code> and <code>free(3)</code>. Finally, the pointer to the list must be set to <code>NULL</code>.
+</p>
+
+<h3 id="ft_lstiter">ft_lstiter</h3>
+<p>
+    <strong>Prototype:</strong> <code>void ft_lstiter(t_list *lst, void (*f)(void *));</code><br>
+    <strong>Parameters:</strong> 
+    <ul>
+        <li><code>lst</code>: The address of a pointer to a node.</li>
+        <li><code>f</code>: The address of the function used to iterate on the list.</li>
+    </ul>
+    <strong>Return Value:</strong> None.<br>
+    <strong>Description:</strong> Iterates the list <code>lst</code> and applies the function <code>f</code> on the content of each node.
+</p>
+
+<h3 id="ft_lstmap">ft_lstmap</h3>
+<p>
+    <strong>Prototype:</strong> <code>t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));</code><br>
+    <strong>Parameters:</strong> 
+    <ul>
+        <li><code>lst</code>: The address of a pointer to a node.</li>
+        <li><code>f</code>: The address of the function used to iterate on the list.</li>
+        <li><code>del</code>: The address of the function used to delete the content of a node if needed.</li>
+    </ul>
+    <strong>Return Value:</strong> The new list. <code>NULL</code> if the allocation fails.<br>
+    <strong>External Functions:</strong> <code>malloc</code>, <code>free</code><br>
+    <strong>Description:</strong> Iterates the list <code>lst</code> and applies the function <
     <h2>Conclusion</h2>
     <p>This documentation describes the functions implemented in a string manipulation library. Each function has been detailed with its prototype, parameters, return value, and description. The implementation of these functions is essential for efficient string manipulation in C.</p>
 </body>
