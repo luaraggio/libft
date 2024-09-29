@@ -74,9 +74,6 @@ fclean: clean
 
 re:	fclean all
 
-run: re
-	./$(NAME)
-
 val: re
 	valgrind --leak-check=full --show-leak-kinds=all --suppressions=supressions.supp ./$(NAME)
 
